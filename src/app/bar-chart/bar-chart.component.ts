@@ -2,14 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { ChartService } from '../chart.service';
 import { BarChart } from '../Iapi';
 
-
 @Component({
   selector: 'app-bar-chart',
   templateUrl: './bar-chart.component.html',
   styleUrls: ['./bar-chart.component.scss']
 })
 export class BarChartComponent implements OnInit {
-  data!: BarChart[];
+  data!: BarChart;
   constructor(private chartService: ChartService) { }
 
   ngOnInit(): void {
@@ -19,7 +18,7 @@ export class BarChartComponent implements OnInit {
     this.chartService.getApiData('barChart')
       .subscribe(response => {
         console.log(response);
-        this.data = response as BarChart[];
+        this.data = response[0] as BarChart;
       });
   }
 }

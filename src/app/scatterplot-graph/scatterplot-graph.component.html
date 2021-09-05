@@ -1,1 +1,7 @@
-<p>scatterplot-graph works!</p>
+<div *ngIf="data; else noData">
+    <h2>Scatterplot Graph</h2>
+    <div *ngFor="let item of data">
+        {{item.Time}} - {{item.Name}}
+    </div>
+</div>
+<ng-template #noData>No Info</ng-template>

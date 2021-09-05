@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ChartService } from '../chart.service';
+import { HeatMap } from '../Iapi';
 
 @Component({
   selector: 'app-heat-map',
@@ -6,10 +8,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./heat-map.component.scss']
 })
 export class HeatMapComponent implements OnInit {
-
-  constructor() { }
+  data!: HeatMap;
+  constructor(private chartService: ChartService) { }
 
   ngOnInit(): void {
+    this.getData();
   }
-
+  
+  getData(): void {
+    this.chartService.getApiData('heatMap')
+      .subscribe(response => {
+        console.log(response);
+        this.data = response[0] as HeatMap;
+      });
+  }
 }

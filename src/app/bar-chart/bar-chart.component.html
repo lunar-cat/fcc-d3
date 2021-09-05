@@ -1,9 +1,7 @@
-
 <div *ngIf="data; else noData">
-    <div *ngFor="let item of data">
-        <p *ngFor="let chartData of item.data">
-            {{chartData}}
-        </p>
-    </div>
+    <h2>Bar Chart</h2>
+    <p *ngFor="let chartData of data.data">
+        {{chartData}}
+    </p>
 </div>
 <ng-template #noData>No hay nada</ng-template>

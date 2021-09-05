@@ -1,1 +1,10 @@
-<p>treemap-diagram works!</p>
+<div *ngIf="data; else noData">
+    <h2>Treemap Diagram</h2>
+    <div *ngFor="let type of data">
+        <h3>{{type.name}}</h3>
+        <div *ngFor="let child of type.children">
+            {{child.name}}
+        </div>
+    </div>
+</div>
+<ng-template #noData>No info</ng-template>
