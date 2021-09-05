@@ -22,6 +22,7 @@ interface ChoroplethMap {
   bachelorsOrHiger: number,
 }
 interface ChoroplethTopology {
+  type: string,
   objects: {
     counties: {
       type: string,

@@ -1,1 +1,10 @@
-<p>choropleth-map works!</p>
+<div *ngIf="dataTopology && dataMap">
+    <div>
+        <div *ngFor="let arr of dataMap">
+            {{arr.area_name}}
+        </div>
+    </div>
+    <div>
+        {{dataTopology.type}}
+    </div>
+</div>

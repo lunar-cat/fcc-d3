@@ -1,1 +1,9 @@
-<p>bar-chart works!</p>
+
+<div *ngIf="data; else noData">
+    <div *ngFor="let item of data">
+        <p *ngFor="let chartData of item.data">
+            {{chartData}}
+        </p>
+    </div>
+</div>
+<ng-template #noData>No hay nada</ng-template>
