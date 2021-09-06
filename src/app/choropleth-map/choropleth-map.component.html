@@ -1,4 +1,4 @@
-<div *ngIf="dataTopology && dataMap">
+<div *ngIf="dataTopology && dataMap; else noData">
     <h2>Cloropleth Map</h2>
     <div>
         <div *ngFor="let arr of dataMap">
@@ -9,3 +9,4 @@
         {{dataTopology.type}}
     </div>
 </div>
+<ng-template #noData>No infouwu</ng-template>
