@@ -26,7 +26,7 @@ export class BarChartComponent implements OnInit {
   }
   createSVG(): void {
     if (!this.data) return;
-    const [w, h, p] = [800, 400, 50];
+    const [w, h, p] = [1200, 600, 50];
     const barW = w / this.data.data.length;
     const xValues: Date[] = this.data.data.map(x => new Date(x[0]));
     const yValues: number[] = this.data.data.map(y => y[1]);
@@ -64,17 +64,6 @@ export class BarChartComponent implements OnInit {
     xScale: d3.ScaleTime<number, number, never>,
     yScale: d3.ScaleLinear<number, number, never>,
     h: number, p: number): void {
-    d3.select('body').append('div')
-      .style('position', 'absolute')
-      .style('visibility', 'hidden')
-      .style('background-color', 'black')
-      .style('color', 'white')
-      .style('width', 'max-content')
-      .style('height', 'max-content')
-      .style('padding', '10px')
-      .style('border-radius', '8px')
-      .style('white-space', 'pre-line')
-      .attr('id', 'tooltip');
     this.svg.append('g').attr('pointer-events', 'all')
       .on('mouseover', e => {
         const date: string = e.target.dataset.date;
@@ -84,7 +73,7 @@ export class BarChartComponent implements OnInit {
         div.style.visibility = 'visible';
         div.style.top = `${yUser}px`;
         div.style.left = `${xUser + 20}px`;
-        div.textContent = `Fecha: ${date}\n Valor ${value}`;
+        div.textContent = `Fecha: ${date}\n Valor: $${value}`;
         div.setAttribute('data-date', date);
       })
       .on('mouseout', e => {
@@ -100,7 +89,7 @@ export class BarChartComponent implements OnInit {
       .attr('data-gdp', d => d[1])
       .attr('fill', 'purple')
       .attr('height', d => yScale(0) - yScale(d[1]))
-      .attr('width', barWidth)
+      .attr('width', barWidth / 1.5)
       .attr('y', d => yScale(d[1]))
       .attr('x', d => xScale(new Date(d[0])));
   }
