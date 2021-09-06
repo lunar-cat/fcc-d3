@@ -21,7 +21,7 @@ export class BarChartComponent implements OnInit {
     this.chartService.getApiData('barChart')
       .subscribe(response => {
         this.data = response[0] as BarChart;
-        this.createSVG();
+        this.createSVG(); // Llamamos a crear el SVG cuando llega la data
       });
   }
   createSVG(): void {
