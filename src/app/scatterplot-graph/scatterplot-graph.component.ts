@@ -29,7 +29,7 @@ export class ScatterplotGraphComponent implements OnInit {
     const [w, h, p, r] = [1200, 600, 50, 8];
     const xValues: Date[] = this.data.map(x => new Date(x.Year, 0));
     const yValues: number[] = this.data.map(x => (+x.Time.slice(0, 2) * 60) + +x.Time.slice(3));
-    console.log(yValues); // Borrar
+
     const [xMin, xMax] = [d3.min(xValues), d3.max(xValues)];
     const [yMin, yMax] = [d3.max(yValues), d3.min(yValues)];
     // Acá dimos vuelta los valores, así invertimos el yAxis
@@ -54,9 +54,11 @@ export class ScatterplotGraphComponent implements OnInit {
     this.addAxisToSVG(xScale, yScale, w, h, p);
     this.addDataToSVG(r, xScale, yScale, yValues, xValues);
   }
-  addAxisToSVG(xScale: d3.ScaleTime<number, number, never>,
+  addAxisToSVG(
+    xScale: d3.ScaleTime<number, number, never>,
     yScale: d3.ScaleLinear<number, number, never>,
-    w: number, h: number, p: number): void {
+    w: number, h: number, p: number
+  ): void {
     const xAxis = d3.axisBottom(xScale);
     const yAxis = d3.axisLeft(yScale).tickFormat(v => `${new Date(+v * 1000).toISOString().slice(14, 19)}`);
 
@@ -83,7 +85,7 @@ export class ScatterplotGraphComponent implements OnInit {
     d3.select('#legend').append('circle')
       .attr('cx', w - p * 4).attr('cy', p / 2 + 100)
       .attr('r', 10).attr('fill', 'purple');
-    
+
     d3.select('#legend').append('text')
       .attr('x', w - p * 4 + 15).attr('y', p / 2 + 50 + 5)
       .text('No acusado de Doping');
@@ -92,10 +94,12 @@ export class ScatterplotGraphComponent implements OnInit {
       .attr('x', w - p * 4 + 15).attr('y', p / 2 + 100 + 5)
       .text('Acusado de Doping');
   }
-  addDataToSVG(circleR: number,
+  addDataToSVG(
+    circleR: number,
     xScale: d3.ScaleTime<number, number, never>,
     yScale: d3.ScaleLinear<number, number, never>,
-    yValues: number[], xValues: Date[]): void {
+    yValues: number[], xValues: Date[]
+  ): void {
     this.svg.append('g')
       .on('mouseover', e => {
         const year: string = e.target.dataset.xvalue;
