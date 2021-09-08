@@ -1,12 +1,7 @@
-<div *ngIf="dataTopology && dataMap; else noData">
-    <h2>Cloropleth Map</h2>
-    <div>
-        <div *ngFor="let arr of dataMap">
-            {{arr.area_name}}
-        </div>
-    </div>
-    <div>
-        {{dataTopology.type}}
-    </div>
+<div id="svgContainer">
+    <div id="title">Mapa</div>
+    <div id="description">Descripción</div>
 </div>
-<ng-template #noData>No infouwu</ng-template>
+<div id="tooltip">
+
+</div>

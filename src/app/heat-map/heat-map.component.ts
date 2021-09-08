@@ -131,6 +131,5 @@ export class HeatMapComponent implements OnInit {
       .attr('x', (d, i) => xScale(xValues[i]))
       .attr('y', (d, i) => yScale(months[d.month - 1])!)
       .attr('fill', d => colorScale(d.variance))
-
   }
 }

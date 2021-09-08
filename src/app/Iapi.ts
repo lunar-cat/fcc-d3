@@ -19,10 +19,10 @@ interface ChoroplethMap {
   fips: number,
   state: string,
   area_name: string,
-  bachelorsOrHiger: number,
+  bachelorsOrHigher: number,
 }
 interface ChoroplethTopology {
-  type: string,
+  type: "Topology",
   objects: {
     counties: {
       type: string,
