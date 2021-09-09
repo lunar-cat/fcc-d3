@@ -57,10 +57,15 @@ interface ChoroplethTopology {
 }
 interface TreemapDiagram {
   name: string,
+  id: string,
+  value: string
   children: {
     name: string,
+    id: string,
+    value: string
     children: {
       name: string,
+      id: string,
       category: string,
       value: string
     }[]

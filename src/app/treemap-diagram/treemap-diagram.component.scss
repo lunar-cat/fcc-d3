@@ -1,0 +1,11 @@
+div#tooltip {
+    position: absolute;
+    visibility: hidden;
+    background-color: black;
+    color: white;
+    width: max-content;
+    height: max-content;
+    padding: 10px;
+    border-radius: 8px;
+    white-space: pre-line;
+}

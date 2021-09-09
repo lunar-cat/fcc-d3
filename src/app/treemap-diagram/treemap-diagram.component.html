@@ -1,10 +1,18 @@
-<div *ngIf="data; else noData">
-    <h2>Treemap Diagram</h2>
-    <div *ngFor="let type of data">
-        <h3>{{type.name}}</h3>
-        <div *ngFor="let child of type.children">
-            {{child.name}}
+<div id="svgContainer">
+    <div id="title">TreeMap</div>
+    <div id="description">Descripción</div>
+
+    <div *ngIf="dataSet">
+        <div id="selected-data-container">
+            <ul>
+                <li *ngFor="let item of dataSet">
+                    <button (click)="selectData(item); createSVG()">{{ item.name }}</button>
+                </li>
+            </ul>
         </div>
     </div>
+
 </div>
-<ng-template #noData>No info</ng-template>
+<div id="tooltip">
+
+</div>
