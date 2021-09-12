@@ -30,7 +30,7 @@ export class HeatMapComponent implements OnInit {
       'January', 'February', 'March', 'April', 'May', 'June',
       'July', 'August', 'September', 'October', 'November', 'December'
     ];
-    const [w, h, p] = [1200, 600, 70];
+    const [w, h, p] = [1200, 800, 120];
     const xValues: Date[] = this.data.monthlyVariance.map(x => new Date(x.year, 0));
     const barWidth = (w) / new Set(this.data.monthlyVariance.map(x => x.year)).size;
     const yValues: number[] = this.data.monthlyVariance.map(x => x.month);
@@ -42,7 +42,7 @@ export class HeatMapComponent implements OnInit {
     if (!xMin || !xMax || !yMin || !yMax || !colorMin || !colorMax) return;
     const colorMinMax = Math.max(colorMin, colorMax);
 
-    const xScale = d3.scaleTime().domain([xMin, xMax]).range([p, w - p]);
+    const xScale = d3.scaleTime().domain([xMin, xMax]).range([p, w - (p / 3)]);
     const yScale = d3.scaleBand().domain(months).range([p, h - p]);
     const colorScale = d3.scaleDiverging([-colorMinMax, 0, colorMinMax], t => d3.interpolateRdBu(1 - t));
 
@@ -76,15 +76,16 @@ export class HeatMapComponent implements OnInit {
     // Título
     this.svg.append('text')
       .attr('x', p).attr('y', p / 2).text('Heat-map')
-      .attr('id', 'title');
+      .attr('id', 'title').attr('fill', 'white').attr('font-size', '2rem');
     // Descripción
     this.svg.append('text')
-      .attr('x', p * 4).attr('y', p / 2).text('Mapa de variación de \ncalor por mes/año')
-      .attr('id', 'description').style('white-space', 'pre-line');
+      .attr('x', p).attr('y', p / 1.2).text('Data variation of \nheat per month/year')
+      .attr('id', 'description').attr('fill', 'white').attr('font-size', '1.2rem');
 
     // Leyenda Axis
     this.svg.append('g').append('svg')
       .attr('id', 'legend').attr('width', 300).attr('height', p)
+      .attr('fill', 'white').attr('font-size', '1.2rem')
       .attr('transform', `translate(900, 0)`);
     d3.select('#legend').append('g')
       .attr('transform', `translate(0, ${p / 1.5})`)
@@ -106,7 +107,7 @@ export class HeatMapComponent implements OnInit {
       .on('mouseover', e => {
         const year: string = e.target.dataset.year;
         const temp: string = e.target.dataset.temp;
-        const [xUser, yUser] = [e.clientX, e.clientY];
+        const [xUser, yUser] = [e.pageX, e.pageY];
         const div = document.querySelector('#tooltip') as HTMLDivElement;
         div.style.visibility = 'visible';
         div.style.top = `${yUser}px`;

@@ -44,7 +44,7 @@ export class BarChartComponent implements OnInit {
       .append('svg')
       .attr('width', w)
       .attr('height', h)
-      .style('border', '2px solid black');
+      .style('border', '2px solid white');
     if (svg !== null) this.svg = svg;
     this.addAxisToSVG(xScale, yScale, w, h, p);
     this.addDataToSVG(barW, xScale, yScale, h, p);
@@ -61,8 +61,9 @@ export class BarChartComponent implements OnInit {
       .attr('transform', `translate(${p}, 0)`)
       .attr('id', 'y-axis').call(yAxis);
     this.svg.append('text')
-      .attr('x', w / 2).attr('y', p / 2).text('Bar Chart')
-      .attr('id', 'title');
+      .attr('x', w / 2).attr('y', p).text('Bar Chart')
+      .attr('id', 'title').attr('fill', 'white')
+      .attr('font-size', '2rem');
   }
   addDataToSVG(barWidth: number,
     xScale: d3.ScaleTime<number, number, never>,
@@ -77,7 +78,7 @@ export class BarChartComponent implements OnInit {
         div.style.visibility = 'visible';
         div.style.top = `${yUser}px`;
         div.style.left = `${xUser + 20}px`;
-        div.textContent = `Fecha: ${date}\n Valor: $${parseInt(value).toFixed()}`;
+        div.textContent = `Date: ${date}\n Value: $${parseInt(value).toFixed()} USD`;
         div.setAttribute('data-date', date);
       })
       .on('mouseout', e => {
@@ -91,11 +92,8 @@ export class BarChartComponent implements OnInit {
       .attr('class', 'bar')
       .attr('data-date', d => d[0])
       .attr('data-gdp', d => d[1])
-      .attr('fill', 'purple')
-      .attr('height', d => {
-        console.log(yScale(d[1]));
-        return yScale(0) - yScale(d[1]);
-      }) // yScale(0) es === que h - p === 550, ojo h-p no yScale(h - p)
+      .attr('fill', 'white')
+      .attr('height', d => yScale(0) - yScale(d[1])) // yScale(0) es === que h - p === 550, ojo h-p no yScale(h - p)
       .attr('width', barWidth / 1.5)
       .attr('y', d => yScale(d[1]))
       .attr('x', d => xScale(new Date(d[0])));
