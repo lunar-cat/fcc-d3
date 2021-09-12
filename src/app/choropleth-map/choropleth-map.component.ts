@@ -30,7 +30,7 @@ export class ChoroplethMapComponent implements OnInit {
   }
   createSVG(): void {
     if (!this.dataMap || !this.dataTopology) return;
-    const [w, h, p] = [1200, 600, 70];
+    const [w, h, p] = [1200, 800, 70];
     const us = this.dataTopology;
     const map = this.dataMap;
     const states = new Map(us.objects.counties.geometries.map(d => [d.id, map.find(obj => obj.fips === d.id, 0)?.area_name]));
@@ -38,7 +38,7 @@ export class ChoroplethMapComponent implements OnInit {
 
     console.log(statesDegree);
     const path = d3.geoPath();
-    const color = d3.scaleQuantize([2, 76], d3.schemeBlues[9]);
+    const color = d3.scaleQuantize([2, 76], d3.schemeBlues[9]); // 2 y 76 son el min/max de los porcentajes
     if (!us || !map || !states || !statesDegree) return;
     const topofeature = topojson.feature as any;
     const svg = d3.select('#svgContainer')
@@ -66,10 +66,22 @@ export class ChoroplethMapComponent implements OnInit {
     d3.select('#legend').selectAll('rect')
       .data(d3.schemeBlues[9]).enter()
       .append('rect').attr('y', (d, i) => colorAxisScale(colorSample[i]))
-      .attr('x', 190).attr('width', 50).attr('height', (h - p) / 8.5)
+      .attr('x', 190).attr('width', 50).attr('height', (h - p) - p / 8)
       .attr('fill', (d, i) => d3.schemeBlues[9][i]);
     // Leyenda Título
-    d3.select('#legend').append('text').text('Leyenda').attr('x', 190).attr('y', 15);
+    d3.select('#legend').append('text')
+      .text('Leyenda').attr('x', 150).attr('y', p / 1.5)
+      .attr('fill', 'white').attr('font-size', '2rem');
+    // Título
+   this.svg.append('text')
+      .text('Choropleth Map').attr('x', 150).attr('y', p / 1.5)
+      .attr('fill', 'white').attr('font-size', '2rem')
+      .attr('id', 'title');
+    // Descripción
+    this.svg.append('text')
+      .text('Percentage of degree per State').attr('x', 150).attr('y', p * 1.5)
+      .attr('fill', 'white').attr('font-size', '1.2rem')
+      .attr('id', 'description');
   }
   addDataToSVG(
     topofeature: any, color: d3.ScaleQuantize<string, never>,
@@ -77,6 +89,7 @@ export class ChoroplethMapComponent implements OnInit {
     us: ChoroplethTopology, path: any
   ): void {
     this.svg.append('g')
+      .attr('transform', `translate(70, 140)`)
       .selectAll('path')
       .data(topofeature(us, us.objects.counties).features)
       .join('path')
