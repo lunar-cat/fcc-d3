@@ -79,23 +79,24 @@ export class HeatMapComponent implements OnInit {
       .attr('id', 'title').attr('fill', 'white').attr('font-size', '2rem');
     // Descripción
     this.svg.append('text')
-      .attr('x', p).attr('y', p / 1.2).text('Data variation of \nheat per month/year')
+      .attr('x', p).attr('y', p / 1.2).text('Heat variation per month/year')
       .attr('id', 'description').attr('fill', 'white').attr('font-size', '1.2rem');
 
-    // Leyenda Axis
+    // Leyenda Contenedor
     this.svg.append('g').append('svg')
       .attr('id', 'legend').attr('width', 300).attr('height', p)
       .attr('fill', 'white').attr('font-size', '1.2rem')
-      .attr('transform', `translate(900, 0)`);
+      .attr('transform', `translate(870, 0)`);
+    // Leyenda Axis
     d3.select('#legend').append('g')
-      .attr('transform', `translate(0, ${p / 1.5})`)
+      .attr('transform', `translate(0, ${p / 1.3})`)
       .call(colorAxis);
     // Leyenda Colores
     d3.select('#legend').selectAll('rect').data(bands).enter().append('rect')
-      .attr('x', d => colorAxisScale(d)!).attr('y', `${p / 3}`)
+      .attr('x', d => colorAxisScale(d)!).attr('y', `${p / 1.7}`)
       .attr('width', d => colorAxisScale.bandwidth()).attr('height', '20').attr('fill', d => colorScale(+d));
     // Leyenda Título
-    d3.select('#legend').append('text').text('Leyenda').attr('x', 10).attr('y', 15);
+    d3.select('#legend').append('text').text('Leyenda').attr('x', 10).attr('y', p / 2).attr('font-size', '2rem');
   }
   addDataToSVG(
     xScale: d3.ScaleTime<number, number, never>,
