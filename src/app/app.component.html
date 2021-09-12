@@ -1,19 +1,19 @@
-<h1>App</h1>
-<nav>
-    <li>
-        <a routerLink="/bar-chart">Bar Chart</a>
-    </li>
-    <li>
-        <a routerLink="/choropleth-map">Choropleth Map</a>
-    </li>
-    <li>
-        <a routerLink="/heat-map">Heat Map</a>
-    </li>
-    <li>
-        <a routerLink="/scatterplot-graph">Scatterplot Graph</a>
-    </li>
-    <li>
-        <a routerLink="/treemap-diagram">Treemap Diagram</a>
-    </li>
-</nav>
+<h1>D3 FCC Exercises <span class="badge">with PaperCSS!</span></h1>
+<div class="row flex-spaces tabs">
+    <input type="radio" id="tab1" name="tabs" routerLink="/bar-chart" (click)="setTitle('Bar Chart')">
+    <label for="tab1">Bar Chart</label>
+
+    <input type="radio" id="tab2" name="tabs" routerLink="/heat-map" (click)="setTitle('Heat Map')">
+    <label for="tab2">Heat Map</label>
+
+    <input type="radio" id="tab3" name="tabs" routerLink="/scatterplot-graph" (click)="setTitle('Scatterplot Graph')">
+    <label for="tab3">Scatterplot Graph</label>
+
+    <input type="radio" id="tab4" name="tabs" routerLink="/treemap-diagram" (click)="setTitle('Treemap Diagram')">
+    <label for="tab4">Treemap Diagram</label>
+
+    <input type="radio" id="tab5" name="tabs" routerLink="/choropleth-map" (click)="setTitle('Choropleth Map')">
+    <label for="tab5">Choropleth Map</label>
+</div>
+
 <router-outlet></router-outlet>
