@@ -36,7 +36,6 @@ export class ChoroplethMapComponent implements OnInit {
     const states = new Map(us.objects.counties.geometries.map(d => [d.id, map.find(obj => obj.fips === d.id, 0)?.area_name]));
     const statesDegree = new Map(map.map(x => [x.fips, x.bachelorsOrHigher]));
 
-    console.log(statesDegree);
     const path = d3.geoPath();
     const color = d3.scaleQuantize([2, 76], d3.schemeBlues[9]); // 2 y 76 son el min/max de los porcentajes
     if (!us || !map || !states || !statesDegree) return;
@@ -44,7 +43,7 @@ export class ChoroplethMapComponent implements OnInit {
     const svg = d3.select('#svgContainer')
       .append('svg')
       .attr('width', w).attr('height', h)
-      .style('border', '2px solid black');
+      .style('border', '2px solid white');
     if (svg !== null) this.svg = svg;
     this.addAxisToSVG(p, h, color);
     this.addDataToSVG(topofeature, color, states, statesDegree, us, path);

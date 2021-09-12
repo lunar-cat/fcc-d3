@@ -90,7 +90,7 @@ export class TreemapDiagramComponent implements OnInit {
       .text((d: any) => d)
       .attr('x', 4)
       .attr('y', function (d, i) {
-        return 13 + i * 10;
+        return 13 + i * 20;
       })
       .attr('font-size', '0.8rem')
       .attr('font-family', 'verdana');

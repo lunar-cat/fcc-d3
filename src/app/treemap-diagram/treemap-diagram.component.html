@@ -1,14 +1,11 @@
-<div id="svgContainer">
+<div id="svgContainer" class="row flex-center">
     <div id="title">TreeMap</div>
     <div id="description">Descripción</div>
 
     <div *ngIf="dataSet">
         <div id="selected-data-container">
-            <ul>
-                <li *ngFor="let item of dataSet">
-                    <button (click)="selectData(item); createSVG()">{{ item.name }}</button>
-                </li>
-            </ul>
+            <button *ngFor="let item of dataSet"
+                (click)="selectData(item); createSVG()">{{ item.name }}</button>
         </div>
     </div>
 
