@@ -69,7 +69,7 @@ export class TreemapDiagramComponent implements OnInit {
         const value: string = e.target.dataset.value;
         const name: string = e.target.dataset.name;
         const category: string = e.target.dataset.category;
-        const [xUser, yUser] = [e.clientX, e.clientY];
+        const [xUser, yUser] = [e.pageX, e.pageY];
         const div = document.querySelector('#tooltip') as HTMLDivElement;
         div.style.visibility = 'visible';
         div.style.top = `${yUser}px`;

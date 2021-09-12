@@ -50,7 +50,7 @@ export class HeatMapComponent implements OnInit {
       .append('svg')
       .attr('width', w)
       .attr('height', h)
-      .style('border', '2px solid black');
+      .style('border', '2px solid white');
     if (svg !== null) this.svg = svg;
     this.addAxisToSVG(xScale, yScale, colorScale, w, h, p, months);
     this.addDataToSVG(xScale, yScale, yValues, xValues, months, colorScale, barWidth);
@@ -132,6 +132,6 @@ export class HeatMapComponent implements OnInit {
       .attr('height', yScale.bandwidth())
       .attr('x', (d, i) => xScale(xValues[i]))
       .attr('y', (d, i) => yScale(months[d.month - 1])!)
-      .attr('fill', d => colorScale(d.variance))
+      .attr('fill', d => colorScale(d.variance));
   }
 }

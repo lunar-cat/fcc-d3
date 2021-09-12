@@ -26,7 +26,7 @@ export class BarChartComponent implements OnInit {
   }
   createSVG(): void {
     if (!this.data) return;
-    const [w, h, p] = [1200, 600, 50];
+    const [w, h, p] = [1200, 800, 80];
     const barW = w / this.data.data.length;
     const xValues: Date[] = this.data.data.map(x => new Date(x[0]));
     const yValues: number[] = this.data.data.map(y => y[1]);
@@ -61,7 +61,7 @@ export class BarChartComponent implements OnInit {
       .attr('transform', `translate(${p}, 0)`)
       .attr('id', 'y-axis').call(yAxis);
     this.svg.append('text')
-      .attr('x', w / 2).attr('y', p).text('Bar Chart')
+      .attr('x', w / 2.2).attr('y', p).text('Bar Chart')
       .attr('id', 'title').attr('fill', 'white')
       .attr('font-size', '2rem');
   }
@@ -73,7 +73,7 @@ export class BarChartComponent implements OnInit {
       .on('mouseover', e => {
         const date: string = e.target.dataset.date;
         const value: string = e.target.dataset.gdp;
-        const [xUser, yUser] = [e.clientX, e.clientY];
+        const [xUser, yUser] = [e.pageX, e.pageY];
         const div = document.querySelector('#tooltip') as HTMLDivElement;
         div.style.visibility = 'visible';
         div.style.top = `${yUser}px`;

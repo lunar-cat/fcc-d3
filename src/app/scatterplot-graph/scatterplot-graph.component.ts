@@ -26,7 +26,7 @@ export class ScatterplotGraphComponent implements OnInit {
   }
   createSVG(): void {
     if (!this.data) return;
-    const [w, h, p, r] = [1200, 600, 50, 8];
+    const [w, h, p, r] = [1200, 800, 50, 8];
     const xValues: Date[] = this.data.map(x => new Date(x.Year, 0));
     const yValues: number[] = this.data.map(x => (+x.Time.slice(0, 2) * 60) + +x.Time.slice(3));
 
@@ -49,7 +49,7 @@ export class ScatterplotGraphComponent implements OnInit {
       .append('svg')
       .attr('width', w)
       .attr('height', h)
-      .style('border', '2px solid black');
+      .style('border', '2px solid white');
     if (svg !== null) this.svg = svg;
     this.addAxisToSVG(xScale, yScale, w, h, p);
     this.addDataToSVG(r, xScale, yScale, yValues, xValues);
@@ -71,28 +71,31 @@ export class ScatterplotGraphComponent implements OnInit {
       .attr('id', 'y-axis').call(yAxis);
     // Título
     this.svg.append('text')
-      .attr('x', w / 2).attr('y', p / 2).text('Scatterplot Graph')
-      .attr('id', 'title');
+      .attr('x', w / 2.5).attr('y', p).text('Scatterplot Graph')
+      .attr('id', 'title').attr('font-size', '2rem').attr('fill', 'white');
     // Leyenda
     this.svg.append('g').attr('id', 'legend');
     d3.select('#legend').append('text')
-      .attr('x', w - p * 4 - 5).attr('y', p / 2).text('Leyenda');
+      .attr('x', w - p * 5 - 8).attr('y', p).text('Leyenda')
+      .attr('font-size', '2rem').attr('fill', 'white');
 
     d3.select('#legend').append('circle')
-      .attr('cx', w - p * 4).attr('cy', p / 2 + 50)
-      .attr('r', 10).attr('fill', 'orange');
+      .attr('cx', w - p * 5).attr('cy', p / 2 + 50)
+      .attr('r', 10).attr('fill', 'orange').attr('stroke', 'white');
 
     d3.select('#legend').append('circle')
-      .attr('cx', w - p * 4).attr('cy', p / 2 + 100)
-      .attr('r', 10).attr('fill', 'purple');
+      .attr('cx', w - p * 5).attr('cy', p / 2 + 100)
+      .attr('r', 10).attr('fill', 'purple').attr('stroke', 'white');
 
     d3.select('#legend').append('text')
-      .attr('x', w - p * 4 + 15).attr('y', p / 2 + 50 + 5)
-      .text('No acusado de Doping');
+      .attr('x', w - p * 5 + 15).attr('y', p / 2 + 50 + 8)
+      .text('No acusado de Doping')
+      .attr('font-size', '1.2rem').attr('fill', 'white');
 
     d3.select('#legend').append('text')
-      .attr('x', w - p * 4 + 15).attr('y', p / 2 + 100 + 5)
-      .text('Acusado de Doping');
+      .attr('x', w - p * 5 + 15).attr('y', p / 2 + 100 + 8)
+      .text('Acusado de Doping')
+      .attr('font-size', '1.2rem').attr('fill', 'white');
   }
   addDataToSVG(
     circleR: number,
@@ -104,7 +107,7 @@ export class ScatterplotGraphComponent implements OnInit {
       .on('mouseover', e => {
         const year: string = e.target.dataset.xvalue;
         const time: Date = new Date(e.target.dataset.yvalue);
-        const [xUser, yUser] = [e.clientX, e.clientY];
+        const [xUser, yUser] = [e.pageX, e.pageY];
         const div = document.querySelector('#tooltip') as HTMLDivElement;
         div.style.visibility = 'visible';
         div.style.top = `${yUser}px`;
@@ -127,6 +130,7 @@ export class ScatterplotGraphComponent implements OnInit {
       .attr('r', circleR)
       .attr('cx', (d, i) => xScale(xValues[i]))
       .attr('cy', (d, i) => yScale(yValues[i]))
-      .attr('data-cy', (d, i) => yScale(xValues[i]));
+      .attr('data-cy', (d, i) => yScale(xValues[i]))
+      .attr('stroke', 'white');;
   }
 }

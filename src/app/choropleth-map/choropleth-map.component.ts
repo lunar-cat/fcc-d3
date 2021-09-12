@@ -89,7 +89,7 @@ export class ChoroplethMapComponent implements OnInit {
       .on('mouseover', e => {
         const state: string = e.target.dataset.state;
         const education: string = e.target.dataset.education;
-        const [xUser, yUser] = [e.clientX, e.clientY];
+        const [xUser, yUser] = [e.pageX, e.pageY];
         const div = document.querySelector('#tooltip') as HTMLDivElement;
         div.style.visibility = 'visible';
         div.style.top = `${yUser}px`;
