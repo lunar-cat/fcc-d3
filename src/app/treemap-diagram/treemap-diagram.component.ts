@@ -94,6 +94,13 @@ export class TreemapDiagramComponent implements OnInit {
       .attr('y', (d, i) => `20`)
       .attr('font-size', '0.7rem');
 
+      this.addAxisToSVG(w, h, p, colorScale);
+  }
+  addAxisToSVG(
+    w: number, h: number, p: number,
+    colorScale: d3.ScaleOrdinal<string, string, never>
+  ): void {
+
     // Título
     this.svg.append('text')
       .attr('x', p).attr('y', p / 2)
@@ -127,15 +134,9 @@ export class TreemapDiagramComponent implements OnInit {
       .data(nombres)
       .enter()
       .append('text')
-      .attr('x', (d, i) => `${(i * 20 * 3.2 ) + 25}`).attr('y', (d, i) => `${i % 2 ? 30 : (p / 1.5) + 15}`)
+      .attr('x', (d, i) => `${(i * 20 * 3.2) + 25}`).attr('y', (d, i) => `${i % 2 ? 30 : (p / 1.5) + 15}`)
       .append('tspan').text(d => d).attr('font-size', '0.8rem')
       .attr('fill', 'white')
-
-
-
-  }
-  addAxisToSVG(): void {
-
   }
   addDataToSVG(): void {
 
