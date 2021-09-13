@@ -65,7 +65,7 @@ export class ChoroplethMapComponent implements OnInit {
     d3.select('#legend').selectAll('rect')
       .data(d3.schemeBlues[9]).enter()
       .append('rect').attr('y', (d, i) => colorAxisScale(colorSample[i]))
-      .attr('x', 190).attr('width', 50).attr('height', (h - p) - p / 8)
+      .attr('x', 190).attr('width', 50).attr('height', 90)
       .attr('fill', (d, i) => d3.schemeBlues[9][i]);
     // Leyenda Título
     d3.select('#legend').append('text')
