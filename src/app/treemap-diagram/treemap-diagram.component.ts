@@ -49,7 +49,56 @@ export class TreemapDiagramComponent implements OnInit {
     this.svg = d3.select('#svgContainer')
       .append('svg').style('border', '2px solid white')
       .attr('width', w).attr('height', h);
+    
+    this.addDataToSVG(root, p, colorScale);
+    this.addAxisToSVG(p, colorScale);
+  }
+  addAxisToSVG(
+    p: number,
+    colorScale: d3.ScaleOrdinal<string, string, never>
+  ): void {
 
+    // Título
+    this.svg.append('text')
+      .attr('x', p).attr('y', p / 2)
+      .attr('fill', 'white').attr('font-size', '2rem')
+      .text('Treemap Diagram').attr('id', 'title');
+    // Descripción
+    this.svg.append('text')
+      .attr('x', p).attr('y', p / 1.2)
+      .attr('fill', 'white').attr('font-size', '1.2rem')
+      .text(`Sales grouped by: ${this.data.name}`).attr('id', 'description');
+    // Leyenda 
+    const nombres = colorScale.domain();
+
+    this.svg.append('g')
+      .append('svg')
+      .attr('transform', 'translate(550, 0)')
+      .attr('width', 1250).attr('height', p)
+      .attr('id', 'legend')
+      .selectAll('rect')
+      .data(nombres)
+      .enter()
+      .append('rect')
+      .attr('class', 'legend-item')
+      .attr('width', 20).attr('height', 20)
+      .attr('x', (d, i) => `${i * 20 * 3.2}`)
+      .attr('y', (d, i) => `${i % 2 ? 15 : p / 1.5}`)
+      .attr('fill', d => colorScale(d))
+
+    this.svg.select('#legend')
+      .selectAll('text')
+      .data(nombres)
+      .enter()
+      .append('text')
+      .attr('x', (d, i) => `${(i * 20 * 3.2) + 25}`).attr('y', (d, i) => `${i % 2 ? 30 : (p / 1.5) + 15}`)
+      .append('tspan').text(d => d).attr('font-size', '0.8rem')
+      .attr('fill', 'white')
+  }
+  addDataToSVG(
+    root: d3.HierarchyRectangularNode<unknown>, p: number,
+    colorScale: d3.ScaleOrdinal<string, string, never>
+  ): void {
     const leaf = this.svg.append('g')
       .attr('transform', `translate(${p}, ${p})`)
       .selectAll('g')
@@ -93,52 +142,5 @@ export class TreemapDiagramComponent implements OnInit {
       .attr('x', 4)
       .attr('y', (d, i) => `20`)
       .attr('font-size', '0.7rem');
-
-      this.addAxisToSVG(w, h, p, colorScale);
-  }
-  addAxisToSVG(
-    w: number, h: number, p: number,
-    colorScale: d3.ScaleOrdinal<string, string, never>
-  ): void {
-
-    // Título
-    this.svg.append('text')
-      .attr('x', p).attr('y', p / 2)
-      .attr('fill', 'white').attr('font-size', '2rem')
-      .text('Treemap Diagram').attr('id', 'title');
-    // Descripción
-    this.svg.append('text')
-      .attr('x', p).attr('y', p / 1.2)
-      .attr('fill', 'white').attr('font-size', '1.2rem')
-      .text(`Sales grouped by: ${this.data.name}`).attr('id', 'description');
-    // Leyenda 
-    const nombres = colorScale.domain();
-
-    this.svg.append('g')
-      .append('svg')
-      .attr('transform', 'translate(550, 0)')
-      .attr('width', 1250).attr('height', p)
-      .attr('id', 'legend')
-      .selectAll('rect')
-      .data(nombres)
-      .enter()
-      .append('rect')
-      .attr('class', 'legend-item')
-      .attr('width', 20).attr('height', 20)
-      .attr('x', (d, i) => `${i * 20 * 3.2}`)
-      .attr('y', (d, i) => `${i % 2 ? 15 : p / 1.5}`)
-      .attr('fill', d => colorScale(d))
-
-    this.svg.select('#legend')
-      .selectAll('text')
-      .data(nombres)
-      .enter()
-      .append('text')
-      .attr('x', (d, i) => `${(i * 20 * 3.2) + 25}`).attr('y', (d, i) => `${i % 2 ? 30 : (p / 1.5) + 15}`)
-      .append('tspan').text(d => d).attr('font-size', '0.8rem')
-      .attr('fill', 'white')
-  }
-  addDataToSVG(): void {
-
   }
 }
